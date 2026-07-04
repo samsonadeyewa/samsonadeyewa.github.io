@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,15 +23,7 @@
       --grad:   linear-gradient(135deg, #CFAF6E 0%, #FFD580 50%, #E8C060 100%);
       --glow:   0 0 40px rgba(255,213,128,0.18);
     }
-    body.light {
-      --black:  #F5F0E8;
-      --dark:   #FAF7F0;
-      --card:   #FFFFFF;
-      --border: rgba(0,0,0,0.09);
-      --text:   #1A1A1A;
-      --muted:  rgba(0,0,0,0.45);
-      --glow:   0 0 40px rgba(207,175,110,0.2);
-    }
+
 
     html { scroll-behavior: smooth; }
 
@@ -55,7 +48,7 @@
     #cursor, #cursor-ring { display: none; }
     @media (pointer: fine) {
       body { cursor: none; }
-      .btn, nav a, .project-stack-item, .footer-socials a, button { cursor: none; }
+      .btn, nav a, .project-stack-item, button { cursor: none; }
       #cursor {
         display: block; position: fixed;
         width: 10px; height: 10px;
@@ -118,7 +111,6 @@
       padding: 14px 48px;
       border-bottom: 1px solid var(--border);
     }
-    body.light nav.scrolled { background: rgba(250,247,240,.9); }
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.6rem; font-weight: 600;
@@ -143,12 +135,6 @@
     }
     .nav-links a:hover { color: var(--gold); }
     .nav-links a:hover::after { width: 100%; }
-    #theme-toggle {
-      background: transparent; border: none;
-      font-size: 1.1rem; cursor: pointer;
-      transition: transform .4s ease; color: var(--muted); padding: 4px;
-    }
-    #theme-toggle:hover { transform: rotate(30deg); color: var(--gold); }
 
     /* HAMBURGER */
     #hamburger {
@@ -177,7 +163,6 @@
       opacity: 0; visibility: hidden;
       transition: opacity .4s ease, visibility .4s ease;
     }
-    body.light #mobile-nav { background: rgba(250,247,240,.97); }
     #mobile-nav.open { opacity: 1; visibility: visible; }
     .mobile-link {
       font-family: 'Cormorant Garamond', serif;
@@ -413,7 +398,7 @@
     .projects-stack { display: flex; flex-direction: column; }
     .project-stack-item {
       display: block; padding: 56px 0; border-top: 1px solid var(--border);
-      cursor: pointer; transition: opacity .4s ease;
+      transition: opacity .4s ease;
     }
     .project-stack-item:last-child { border-bottom: 1px solid var(--border); }
     .project-stack-image-wrap {
@@ -490,9 +475,6 @@
     /* FOOTER */
     footer { padding: 32px 48px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
     .footer-copy { font-size: .78rem; color: var(--muted); font-family: 'Space Mono', monospace; letter-spacing: .05em; }
-    .footer-socials { display: flex; gap: 24px; }
-    .footer-socials a { font-size: .78rem; color: var(--muted); text-decoration: none; letter-spacing: .08em; text-transform: uppercase; transition: color .3s; }
-    .footer-socials a:hover { color: var(--gold); }
 
     /* SCROLL TOP */
     #scrollTop {
@@ -565,6 +547,7 @@
     <div class="mobile-nav-bottom">
       <a href="https://www.instagram.com/bigwig.dev?igsh=N3hqcTdxdjB0dWF1" target="_blank" rel="noopener">Instagram</a>
       <a href="https://github.com/samsonadeyewa/Bigwigs" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/samson-adeyewa-90b479419" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </div>
 
@@ -577,7 +560,6 @@
       <a href="#expertise">Expertise</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Say Hello</a>
-      <button id="theme-toggle" title="Toggle Theme">☀️</button>
     </div>
     <button id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -741,6 +723,8 @@
             <a href="https://www.instagram.com/bigwig.dev?igsh=N3hqcTdxdjB0dWF1" target="_blank" rel="noopener">Instagram</a>
             <span>,</span>
             <a href="https://github.com/samsonadeyewa/Bigwigs" target="_blank" rel="noopener">GitHub</a>
+            <span>,</span>
+            <a href="https://www.linkedin.com/in/samson-adeyewa-90b479419" target="_blank" rel="noopener">LinkedIn</a>
           </div>
         </div>
       </div>
@@ -753,10 +737,6 @@
   <!-- Footer -->
   <footer>
     <div class="footer-copy">© 2026 Bigwig. All rights reserved.</div>
-    <div class="footer-socials">
-      <a href="https://www.instagram.com/bigwig.dev?igsh=N3hqcTdxdjB0dWF1" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://github.com/samsonadeyewa/Bigwigs" target="_blank" rel="noopener">GitHub</a>
-    </div>
   </footer>
 
   <!-- Project Modal -->
@@ -878,9 +858,7 @@
             <span class="project-stack-tag">${p.tag}</span>
             <h3 class="project-stack-title">${p.title}</h3>
           </div>
-          <span class="project-stack-link">View Case Study →</span>
         </div>`;
-      item.addEventListener('click', () => openProjectModal(key));
       projectsStack.appendChild(item);
       observer.observe(item);
     });
@@ -893,13 +871,6 @@
     const scrollBtn = document.getElementById('scrollTop');
     window.addEventListener('scroll', () => scrollBtn.classList.toggle('show', window.scrollY > 500));
     scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    // THEME
-    const toggle = document.getElementById('theme-toggle');
-    toggle.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      toggle.textContent = document.body.classList.contains('light') ? '🌙' : '☀️';
-    });
 
     // SMOOTH SCROLL
     document.querySelectorAll('a[href^="#"]').forEach(a => {
